@@ -1,0 +1,50 @@
+{
+  "arch": {
+    "args": {
+      "model_path": "./models/klue_bert_base",
+      "num_labels": 4
+    }
+  },
+  "data_loader": {
+    "args": {
+      "train_batch_size": 256,
+      "eval_batch_size":128,
+      "num_workers": 2,
+      "max_length": 128
+    }
+  },
+  "optimizer": {
+    "args": {
+      "lr": 2e-5
+    }
+  },
+  "trainer": {
+    "save_dir": "results/klue_bert_base",
+    "epochs": 5,
+    "is_save_model": true,
+    "args": {
+      "warmup_steps": 500,
+      "weight_decay": 0.01,
+      "logging_steps": 100,
+      "eval_strategy": "epoch",
+      "logging_strategy": "epoch",
+      "metric_for_best_model": "accuracy",
+      "greater_is_better": true,
+      "save_total_limit": 2,
+      "save_safetensors": true,
+      "use_wandb": false,
+      "run_name": "klue-bert-movie-review",
+      "random_state": 42,
+      "remove_unused_columns": false,
+      "push_to_hub": false,
+      "gradient_accumulation_steps": 1,
+      "logging_first_step": true
+    }
+  },
+  "ensemble": {
+    "model_paths" : [
+      "./models/koelectra_local", 
+      "./models/kykim_bert_kor_base"
+    ]
+  }
+}
